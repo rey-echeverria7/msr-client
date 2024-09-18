@@ -1,38 +1,233 @@
-.App {
+/* * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+} */
+
+body {
+  background-color: rgb(245, 245, 239);
+}
+
+header a {
+  font-size: 20px;
+}
+.header {
+  background-color: #830404;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 85px;
+  padding: 5px 10%;
+}
+
+.header .logo {
+  cursor: pointer;
+  margin-right: auto;
+}
+
+.header .logo img {
+  height: 60px;
+  width: auto;
+  transition: all 0.3s;
+}
+
+.header .logo img:hover {
+  transform: scale(1.2);
+}
+
+.header .nav-links {
+  list-style: none;
+}
+
+.header .nav-links li {
+  display: inline-block;
+  padding: 0 20px;
+}
+
+.header .nav-links li:hover {
+  transform: scale(1.1);
+}
+
+.header .nav-links a {
+  font-size: 700;
+  color: #eceff1;
+  text-decoration: none;
+}
+
+.header .nav-links li a:hover {
+  color: #ffbc0e;
+}
+
+.header .btn button {
+  margin-left: 20px;
+  font-weight: 700;
+  color: #1b3039;
+  padding: 9px 25px;
+  background: #eceff1;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+}
+
+.header .btn button:hover {
+  background-color: #e2f1f8;
+  color: #830404;
+  transform: scale(1.1);
+}
+
+/*
+
+ESTILOS TABLA DE REFACCIONES
+
+*/
+.cardDescription {
+  font-weight: bold;
+  padding: 10px;
+}
+
+.cardDescription p {
+  padding: 1px;
+}
+
+.listaRefacciones {
+  height: auto;
+  display: flex;
+  justify-content: center;
+}
+
+body h2 {
+  text-align: left;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 20px;
+}
+
+.refaccionCard {
+  background-color: rgb(235, 233, 225);
+  width: 200px;
+  border: 0.5 solid gray;
+  margin-left: 20px;
+}
+
+.refaccionCard p:first-child {
+  font-weight: lighter;
+}
+
+.refaccionCard img {
+  height: 120px;
+  width: 120px;
+  margin: 10px 0 0 37px;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 50%;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+th {
+  border: 1px solid #dddddd;
+  text-align: center;
+  padding: 8px;
+  text-decoration: none;
+}
+
+td {
+  border: 1px solid #dddddd;
+  text-align: center;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+td img {
+  height: 80px;
+}
+
+.img-container {
+  padding: 5px;
+}
+
+/*
+  FORM AGREGAR REFACCION
+  */
+
+form {
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+  margin-top: 20px;
+}
+
+div.form-agregar {
+  display: block;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+h1 {
+  margin-top: 20px;
+  text-align: center;
+}
+input {
+  margin-top: 10px;
+  margin-bottom: 20px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+label {
+  margin-top: 5px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.formButton {
+  padding: 10px;
+}
+
+/*
+VISTA DE REFACCION
+
+*/
+
+.refaccionContainer {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  margin-left: 120px;
+  margin-right: 120px;
+  background-color: white;
+  border-radius: 30px;
+  margin-top: 20px;
 }
 
-.App-link {
-  color: #61dafb;
+.refactionContainerContent {
+  flex: 1;
+  margin-top: 50px;
+  margin-right: 300px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.refactionContainerContent img {
+  margin-left: 200px;
+}
+
+.refactionContainerContent:first-child {
+  margin-right: 20px;
+}
+
+.refactionContainerContent h1 {
+  text-align: left;
+  padding: 15px;
+}
+
+.refactionContainerContent p {
+  text-align: left;
+  padding: 15px;
+}
+
+.priceTag {
+  text-decoration: underline;
+  color: #830404;
 }
