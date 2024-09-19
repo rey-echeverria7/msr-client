@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { crearRefaccion, eliminarRefaccion } from "./api/refacciones.api";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             path="/agregarRefaccion"
             element={<AgregarRefaccion />}
           ></Route>
+          <Route path="/vistaRefaccion" element={<VistaRefaccion />}></Route>
         </Routes>
       </BrowserRouter>
     </div>
@@ -67,22 +69,31 @@ export function ListaRefacciones() {
 
 export function Refaccion({ refaccion, onDelete }) {
   const navigate = useNavigate();
+
+  function handleRefaccionClick() {
+    navigate("/vistaRefaccion", { state: { refaccion } });
+  }
   return (
-    <div className="refaccionCard">
-      <img src={refaccion.imagePath} alt="" />
+    <div className="refaccionCard" onClick={handleRefaccionClick}>
+      <img src={refaccion.imagePath} alt="imagen refaccion" />
       <CardDescription refaccion={refaccion} />
-      <button
-        onClick={async () => {
-          const accepted = window.confirm("¿Esta seguro que quiere eliminar?");
-          if (accepted) {
-            await eliminarRefaccion(refaccion.id);
-            onDelete(refaccion.id); // Call onDelete to update the state
-            navigate("/listaRefacciones");
-          }
-        }}
-      >
-        ❌
-      </button>
+      <div>
+        <button
+          onClick={async (e) => {
+            e.stopPropagation(); // Prevents the card click event
+            const accepted = window.confirm(
+              "¿Esta seguro que quiere eliminar?"
+            );
+            if (accepted) {
+              await eliminarRefaccion(refaccion.id);
+              onDelete(refaccion.id); // Call onDelete to update the state
+              navigate("/listaRefacciones");
+            }
+          }}
+        >
+          ❌
+        </button>
+      </div>
     </div>
   );
 }
@@ -190,6 +201,31 @@ export function AgregarRefaccion() {
         ></input>
         <input type="submit" value="Submit" />
       </form>
+    </div>
+  );
+}
+
+export function VistaRefaccion() {
+  const location = useLocation();
+  const { refaccion } = location.state || {}; // Get refaccion from the state
+  return (
+    <div>
+      {refaccion ? (
+        <div className="vistaRefaccion">
+          <div className="imageContainer">
+            <img src={refaccion.imagePath} alt="imagen refaccion" />
+          </div>
+
+          <div className="refaccionInfo">
+            <h1>{refaccion.nombre}</h1>
+            <p className="priceTagView">${refaccion.precio}</p>
+            <p>{refaccion.descripcion}</p>
+          </div>
+          <button className="updateButton">Modificar</button>
+        </div>
+      ) : (
+        <p>No refaccion data available.</p>
+      )}
     </div>
   );
 }

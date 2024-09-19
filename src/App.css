@@ -151,19 +151,19 @@ body h2 {
 
 .refaccionCard {
   background-color: rgb(235, 233, 225);
+  box-shadow: 0 0 2px #333;
   width: 200px;
   /* border: 0.5 solid gray; */
   margin-left: 20px;
   margin-top: 10px;
-  box-shadow: 0 0 2px #333;
 }
 
 .refaccionCard button {
   margin-left: 170px;
   margin-bottom: 10px;
   position: relative;
-  width: 25px;
-  height: 25px;
+  width: 15px;
+  height: 15px;
   border-radius: 25px;
   border: 2px solid rgb(231, 50, 50);
   background-color: #fff;
@@ -171,6 +171,7 @@ body h2 {
   box-shadow: 0 0 10px #333;
   overflow: hidden;
   transition: 0.3s;
+  font-size: 8px;
 }
 
 .refaccionCard button:hover {
@@ -232,10 +233,82 @@ input[type="submit"]:hover {
 }
 /*
 VISTA DE REFACCION
-
 */
+
+.vistaRefaccion {
+  display: flex;
+  /*  justify-content: center; */ /* Aligns items horizontally (center) */
+  align-items: center; /* Aligns items vertically (center) */
+  height: 55%; /* Set a height, e.g., 100vh for full viewport height */
+  background-color: rgb(235, 233, 225);
+  box-shadow: 0 0 2px #333;
+  margin-left: 26%;
+  margin-top: 5%;
+  width: 50%;
+}
+
+.vistaRefaccion img {
+  height: 320px;
+  width: 320px;
+  margin: 30px 0 0 37px;
+}
+
+.vistaRefaccion h1 {
+  margin-bottom: 30px;
+  font-family: times, Times New Roman, times-roman, georgia, serif;
+  color: #222121;
+  padding: 0px 0px 6px 0px;
+  font-size: 51px;
+  line-height: 44px;
+  letter-spacing: -2px;
+  font-weight: bold;
+}
+
+.refaccionInfo {
+  margin-left: 30px;
+  /*  border: 1px solid black; */
+  margin-bottom: 50px;
+  margin-top: 5%;
+}
+
+.refaccionInfo :last-child {
+  margin-top: 10%;
+}
+.imageContainer {
+  /* border: 1px solid black; */
+  margin-bottom: 3.8%;
+}
 
 .priceTag {
   text-decoration: underline;
   color: #830404;
+}
+.priceTagView {
+  color: green;
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.updateButton {
+  margin-top: 45%;
+  margin-left: 17%;
+  width: 80px;
+  height: 25px;
+  border-radius: 25px;
+  border: 2px solid rgb(65, 50, 231);
+  background-color: rgb(112, 99, 248);
+  cursor: pointer;
+  box-shadow: 0 0 10px rgb(65, 50, 231);
+  overflow: hidden;
+  transition: 0.3s;
+  font-size: 12px;
+  font-weight: bolder;
+  color: white;
+}
+
+.updateButton:hover {
+  background-color: rgb(65, 50, 231);
+  transform: scale(1.2);
+  box-shadow: 0 0 4px #111;
+  transition: 0.3s;
 }
