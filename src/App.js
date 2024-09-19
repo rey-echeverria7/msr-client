@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { crearRefaccion } from "./api/refacciones.api";
+import { crearRefaccion, eliminarRefaccion } from "./api/refacciones.api";
 import { useNavigate } from "react-router-dom";
 
 function App() {
@@ -52,18 +52,37 @@ export function ListaRefacciones() {
 
       <div className="listaRefacciones">
         {refacciones.map((refaccion) => (
-          <Refaccion refaccion={refaccion} key={refaccion.id} />
+          <Refaccion
+            refaccion={refaccion}
+            key={refaccion.id}
+            onDelete={(id) =>
+              setRefacciones(refacciones.filter((r) => r.id !== id))
+            }
+          />
         ))}
       </div>
     </>
   );
 }
 
-export function Refaccion({ refaccion }) {
+export function Refaccion({ refaccion, onDelete }) {
+  const navigate = useNavigate();
   return (
     <div className="refaccionCard">
       <img src={refaccion.imagePath} alt="" />
       <CardDescription refaccion={refaccion} />
+      <button
+        onClick={async () => {
+          const accepted = window.confirm("¿Esta seguro que quiere eliminar?");
+          if (accepted) {
+            await eliminarRefaccion(refaccion.id);
+            onDelete(refaccion.id); // Call onDelete to update the state
+            navigate("/listaRefacciones");
+          }
+        }}
+      >
+        ❌
+      </button>
     </div>
   );
 }
@@ -90,25 +109,6 @@ export function AgregarRefaccion() {
   const [nombreImagen, setNombreImagen] = useState("");
   const navigate = useNavigate();
 
-  /*  function handleSubmit(e) {
-    e.preventDefault();
-
-    const refaccion = {
-      codigo: codigo,
-      nombre: nombre,
-      descripcion: descripcion,
-      imagePath: nombreImagen,
-    };
-
-    crearRefaccion(refaccion);
-
-    setCodigo("");
-    setNombre("");
-    setDescripcion("");
-    setNombreImagen("");
-
-    navigate("/listaRefacciones");
-  } */
   function getFileName(filePath) {
     return filePath.split("\\").pop();
   }

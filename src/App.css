@@ -152,9 +152,32 @@ body h2 {
 .refaccionCard {
   background-color: rgb(235, 233, 225);
   width: 200px;
-  border: 0.5 solid gray;
+  /* border: 0.5 solid gray; */
   margin-left: 20px;
   margin-top: 10px;
+  box-shadow: 0 0 2px #333;
+}
+
+.refaccionCard button {
+  margin-left: 170px;
+  margin-bottom: 10px;
+  position: relative;
+  width: 25px;
+  height: 25px;
+  border-radius: 25px;
+  border: 2px solid rgb(231, 50, 50);
+  background-color: #fff;
+  cursor: pointer;
+  box-shadow: 0 0 10px #333;
+  overflow: hidden;
+  transition: 0.3s;
+}
+
+.refaccionCard button:hover {
+  background-color: rgb(231, 50, 50);
+  transform: scale(1.2);
+  box-shadow: 0 0 4px #111;
+  transition: 0.3s;
 }
 
 .refaccionCard p:first-child {

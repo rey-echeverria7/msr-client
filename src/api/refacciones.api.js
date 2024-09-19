@@ -11,3 +11,9 @@ export const crearRefaccion = (refaccion) => {
     }
   );
 };
+
+export const eliminarRefaccion = (id) => {
+  return axios.delete(
+    "http://localhost:8000/refacciones/api/v1/refacciones/" + `${id}` + "/"
+  );
+};
