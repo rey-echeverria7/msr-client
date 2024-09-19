@@ -21,7 +21,7 @@ function Nav() {
             </li>
           </ul>
         </nav>
-        <a href="" className="btn">
+        <a className="btn">
           <button>Iniciar Sesion</button>
         </a>
       </header>

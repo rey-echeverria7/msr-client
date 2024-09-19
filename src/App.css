@@ -77,6 +77,22 @@ header a {
   transform: scale(1.1);
 }
 
+.button {
+  background-color: #04aa6d; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.formContainer {
+  margin-left: 20px;
+}
+
 /*
 
 ESTILOS TABLA DE REFACCIONES
@@ -92,16 +108,45 @@ ESTILOS TABLA DE REFACCIONES
 }
 
 .listaRefacciones {
-  height: auto;
+  width: 100%; /* or set a specific width like 300px */
+  max-width: 1200px; /* Maximum width of the div */
+  overflow: hidden; /* Hide content that overflows */
+  white-space: nowrap; /* Prevent text from wrapping */
+  text-overflow: ellipsis; /* Adds '...' at the end of overflowed text */
+  /*  border: 1px solid black; */ /* Optional border for visibility */
+  margin-left: 150px;
+  margin-top: 30px;
+  box-sizing: border-box; /* Ensure padding is included in width */
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
 }
 
+.headerLista {
+  display: flex;
+  margin-top: 10px;
+}
+
+.headerLista h1 {
+  margin-left: 100px;
+  font-family: times, Times New Roman, times-roman, georgia, serif;
+  color: #444;
+  padding: 0px 0px 6px 0px;
+  font-size: 51px;
+  line-height: 44px;
+  letter-spacing: -2px;
+  font-weight: bold;
+}
+
+.headerLista :last-child {
+  margin-left: 60%;
+  margin-top: 3px;
+}
+
 body h2 {
-  text-align: left;
   margin-top: 20px;
   margin-bottom: 20px;
-  margin-left: 20px;
+  margin-left: 110px;
 }
 
 .refaccionCard {
@@ -109,6 +154,7 @@ body h2 {
   width: 200px;
   border: 0.5 solid gray;
   margin-left: 20px;
+  margin-top: 10px;
 }
 
 .refaccionCard p:first-child {
@@ -121,36 +167,6 @@ body h2 {
   margin: 10px 0 0 37px;
 }
 
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 50%;
-  margin-top: 20px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-th {
-  border: 1px solid #dddddd;
-  text-align: center;
-  padding: 8px;
-  text-decoration: none;
-}
-
-td {
-  border: 1px solid #dddddd;
-  text-align: center;
-  padding: 8px;
-}
-
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
-
-td img {
-  height: 80px;
-}
-
 .img-container {
   padding: 5px;
 }
@@ -158,74 +174,43 @@ td img {
 /*
   FORM AGREGAR REFACCION
   */
-
-form {
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
   display: inline-block;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: left;
-  margin-top: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
 }
 
-div.form-agregar {
-  display: block;
-  text-align: center;
+input[type="submit"] {
+  width: 100%;
+  background-color: #4caf50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
-h1 {
-  margin-top: 20px;
-  text-align: center;
-}
-input {
-  margin-top: 10px;
-  margin-bottom: 20px;
+input[type="submit"]:hover {
+  background-color: #45a049;
 }
 
-label {
-  margin-top: 5px;
+.agregarRefaccion {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+  width: 70%;
+  margin-left: 14%;
 }
-
-.formButton {
-  padding: 10px;
-}
-
 /*
 VISTA DE REFACCION
 
 */
-
-.refaccionContainer {
-  display: flex;
-  margin-left: 120px;
-  margin-right: 120px;
-  background-color: white;
-  border-radius: 30px;
-  margin-top: 20px;
-}
-
-.refactionContainerContent {
-  flex: 1;
-  margin-top: 50px;
-  margin-right: 300px;
-}
-
-.refactionContainerContent img {
-  margin-left: 200px;
-}
-
-.refactionContainerContent:first-child {
-  margin-right: 20px;
-}
-
-.refactionContainerContent h1 {
-  text-align: left;
-  padding: 15px;
-}
-
-.refactionContainerContent p {
-  text-align: left;
-  padding: 15px;
-}
 
 .priceTag {
   text-decoration: underline;
