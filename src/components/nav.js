@@ -19,11 +19,11 @@ function Nav() {
             <li>
               <Link to="/">Nosotros</Link>
             </li>
+            <li>
+              <Link to="/login">Iniciar Sesion</Link>
+            </li>
           </ul>
         </nav>
-        <a className="btn">
-          <button>Iniciar Sesion</button>
-        </a>
       </header>
     </div>
   );

@@ -1,4 +1,6 @@
 import Nav from "./components/nav";
+import Login from "./pages/login";
+import AuthProvider from "./auth/AuthProvider";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
@@ -36,6 +38,7 @@ function App() {
             path="/actualizarRefaccion/:id"
             element={<ActualizarRefaccion />}
           ></Route>
+          <Route path="/login" element={<Login />}></Route>
         </Routes>
       </BrowserRouter>
     </div>
@@ -46,11 +49,9 @@ export function ListaRefacciones() {
   const [refacciones, setRefacciones] = useState([]);
 
   const getRefacciones = async () => {
-    await axios
-      .get("http://localhost:8000/refacciones/api/v1/refacciones")
-      .then((res) => {
-        setRefacciones(res.data);
-      });
+    await axios.get("http://localhost:5157/api/refaccion").then((res) => {
+      setRefacciones(res.data);
+    });
   };
 
   useEffect(() => {
@@ -87,11 +88,41 @@ export function Refaccion({ refaccion, onDelete }) {
     navigate(`/vistaRefaccion/${refaccion.id}`, { state: { refaccion } });
   }
   return (
-    <div className="refaccionCard" onClick={handleRefaccionClick}>
-      <img src={refaccion.imagePath} alt="imagen refaccion" />
-      <CardDescription refaccion={refaccion} />
-      <div>
+    <div className="container" onClick={handleRefaccionClick}>
+      <RefaccionCard
+        refaccion={refaccion}
+        onDelete={onDelete}
+        navigate={navigate}
+      />
+    </div>
+  );
+}
+
+export function RefaccionCard({ refaccion, onDelete }) {
+  const navigate = useNavigate();
+
+  function handleRefaccionClick() {
+    navigate(`/actualizarRefaccion/${refaccion.id}`);
+  }
+
+  return (
+    <div className="refaccion">
+      <img
+        src={refaccion.imagePath}
+        alt={refaccion.nombre}
+        className="refaccion-img"
+      />
+      <div className="refaccion-content">
+        <div className="refaccion-tags">
+          <span className="tag tag--vegetarian">{refaccion.codigo}</span>
+        </div>
+        <p className="refaccion-title">{refaccion.nombre}</p>
+        <p className="refaccion-precio">${refaccion.precio}</p>
+      </div>
+
+      <div className="buttonContainerRefaccion">
         <button
+          className="buttonDelete"
           onClick={async (e) => {
             e.stopPropagation(); // Prevents the card click event
             const accepted = window.confirm(
@@ -104,13 +135,23 @@ export function Refaccion({ refaccion, onDelete }) {
             }
           }}
         >
-          ❌
+          Eliminar
+        </button>
+
+        <button
+          className="updateButton"
+          onClick={(e) => {
+            e.stopPropagation(); // Prevents the card click event
+            handleRefaccionClick();
+          }}
+        >
+          Modificar
         </button>
       </div>
     </div>
   );
 }
-
+/*
 export function CardDescription({ refaccion }) {
   return (
     <div className="cardDescription">
@@ -120,6 +161,7 @@ export function CardDescription({ refaccion }) {
     </div>
   );
 }
+  */
 
 export function Home() {
   return <h1>Home</h1>;
@@ -131,6 +173,8 @@ export function AgregarRefaccion() {
   const [precio, setPrecio] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [nombreImagen, setNombreImagen] = useState("");
+  const [compatibles, setCompatibles] = useState("");
+
   const navigate = useNavigate();
 
   function getFileName(filePath) {
@@ -142,13 +186,14 @@ export function AgregarRefaccion() {
 
     try {
       const img = getFileName(nombreImagen);
-      console.log("Nombre: " + img);
+      //console.log("Nombre: " + img);
       // Create the refaccion object
       const refaccion = {
         codigo: codigo,
         nombre: nombre,
         precio: precio,
         descripcion: descripcion,
+        compatibles: compatibles,
         imagePath: "static/" + img,
       };
 
@@ -163,6 +208,7 @@ export function AgregarRefaccion() {
       setPrecio("");
       setDescripcion("");
       setNombreImagen("");
+      setCompatibles("");
 
       // Navigate to another page
       navigate("/listaRefacciones");
@@ -207,6 +253,14 @@ export function AgregarRefaccion() {
           value={descripcion}
           onChange={(e) => setDescripcion(e.target.value)}
         ></textarea>
+        <label>Motocicletas compatibles</label>
+        <textarea
+          cols="30"
+          rows="5"
+          placeholder="Lista de motocicletas compatibles"
+          value={compatibles}
+          onChange={(e) => setCompatibles(e.target.value)}
+        ></textarea>
         <input
           type="file"
           value={nombreImagen}
@@ -224,20 +278,23 @@ export function ActualizarRefaccion() {
   const [precio, setPrecio] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [nombreImagen, setNombreImagen] = useState("");
+  const [compatibles, setCompatibles] = useState("");
+
   const navigate = useNavigate();
   const { id } = useParams();
   let imageName = "";
-  /*   console.log("iD: " + id); */
-  console.log(nombreImagen);
+
+  //console.log(nombreImagen);
 
   useEffect(() => {
     async function loadRefaccion() {
       const ref = await obtenerRefaccion(id).then();
-      console.log(ref.data);
+      //console.log(ref.data);
       setCodigo(ref.data.codigo);
       setNombre(ref.data.nombre);
       setPrecio(ref.data.precio);
       setDescripcion(ref.data.descripcion);
+      setCompatibles(ref.data.compatibles);
       imageName = ref.data.imageName;
     }
 
@@ -318,6 +375,16 @@ export function ActualizarRefaccion() {
           value={descripcion}
           onChange={(e) => setDescripcion(e.target.value)}
         ></textarea>
+
+        <label>Motocicletas compatibles</label>
+
+        <textarea
+          cols="30"
+          rows="5"
+          placeholder="Lista de motocicletas compatibles"
+          value={compatibles}
+          onChange={(e) => setCompatibles(e.target.value)}
+        ></textarea>
         <input
           type="file"
           value={nombreImagen}
@@ -332,12 +399,6 @@ export function ActualizarRefaccion() {
 export function VistaRefaccion() {
   const location = useLocation();
   const { refaccion } = location.state || {}; // Get refaccion from the state
-  const { id } = useParams(); // Get the id from the route
-  const navigate = useNavigate();
-
-  function handleRefaccionClick() {
-    navigate(`/actualizarRefaccion/${refaccion.id}`);
-  }
 
   return (
     <div>
@@ -352,9 +413,6 @@ export function VistaRefaccion() {
             <p className="priceTagView">${refaccion.precio}</p>
             <p>{refaccion.descripcion}</p>
           </div>
-          <button className="updateButton" onClick={handleRefaccionClick}>
-            Modificar
-          </button>
         </div>
       ) : (
         <p>No refaccion data available.</p>

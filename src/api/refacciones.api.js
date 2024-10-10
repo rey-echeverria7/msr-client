@@ -1,26 +1,20 @@
 import axios from "axios";
 
 export const crearRefaccion = (refaccion) => {
-  return axios.post(
-    "http://localhost:8000/refacciones/api/v1/refacciones/",
-    refaccion,
-    {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
+  return axios.post("http://localhost:5157/api/refaccion", refaccion, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
 };
 
 export const eliminarRefaccion = (id) => {
-  return axios.delete(
-    "http://localhost:8000/refacciones/api/v1/refacciones/" + `${id}` + "/"
-  );
+  return axios.delete("http://localhost:5157/api/refaccion/" + `${id}` + "/");
 };
 
 export const actualizarRefaccion = (id, refaccion) => {
-  return axios.patch(
-    "http://localhost:8000/refacciones/api/v1/refacciones/" + `${id}` + "/",
+  return axios.put(
+    "http://localhost:5157/api/refaccion/" + `${id}` + "/",
     refaccion,
     {
       headers: {
@@ -31,7 +25,5 @@ export const actualizarRefaccion = (id, refaccion) => {
 };
 
 export const obtenerRefaccion = (id) => {
-  return axios.get(
-    "http://localhost:8000/refacciones/api/v1/refacciones/" + `${id}` + "/"
-  );
+  return axios.get("http://localhost:5157/api/refaccion/" + `${id}` + "/");
 };
