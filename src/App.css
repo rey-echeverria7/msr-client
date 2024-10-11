@@ -22,7 +22,9 @@ body {
   /* Only works if there is nothing absolutely positioned in relation to body */
   overflow-x: hidden;
 }
-
+.center-text {
+  text-align: center;
+}
 .container {
   /* 1140px */
   max-width: 120rem;
@@ -31,6 +33,31 @@ body {
 }
 
 /*GENERAL*/
+.heading-primary,
+.heading-secondary,
+.heading-tertiary {
+  font-weight: 700;
+  color: #333;
+  /* color: #45260a; */
+  /* color: #343a40; */
+  letter-spacing: -0.5px;
+}
+.heading-secondary {
+  font-size: 4.4rem;
+  line-height: 1.2;
+  margin-bottom: 2.6rem;
+  margin-left: 62rem;
+}
+
+.subheading {
+  display: block;
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: #cf711f;
+  text-transform: uppercase;
+  margin-top: 5.5rem;
+  letter-spacing: 0.75px;
+}
 
 .grid--2-cols {
   grid-template-columns: repeat(2, 1fr);
@@ -91,7 +118,7 @@ body {
 }
 
 .header .nav-links a {
-  font-size: 700;
+  font-size: 1.5rem;
   color: #eceff1;
   text-decoration: none;
 }
@@ -157,7 +184,7 @@ ESTILOS TABLA DE REFACCIONES
   text-overflow: ellipsis; /* Adds '...' at the end of overflowed text */
   /*  border: 1px solid black; */ /* Optional border for visibility */
   margin-left: 150px;
-  margin-top: 30px;
+  margin-top: 0px;
   box-sizing: border-box; /* Ensure padding is included in width */
   display: flex;
   flex-wrap: wrap;

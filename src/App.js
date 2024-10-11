@@ -61,10 +61,15 @@ export function ListaRefacciones() {
   console.log(refacciones);
   return (
     <>
-      <div className="headerLista">
+      {/* <div className="headerLista">
         <h1>Refacciones</h1>
         <Button />
+      </div> */}
+
+      <div class="container center-text">
+        <span class="subheading">Lista</span>
       </div>
+      <h2 class="heading-secondary">REFACCIONES</h2>
 
       <div className="listaRefacciones">
         {refacciones.map((refaccion) => (
@@ -85,7 +90,7 @@ export function Refaccion({ refaccion, onDelete }) {
   const navigate = useNavigate();
 
   function handleRefaccionClick() {
-    navigate(`/vistaRefaccion/${refaccion.id}`, { state: { refaccion } });
+    navigate(`/vistaRefaccion/${refaccion.id}`);
   }
   return (
     <div className="container" onClick={handleRefaccionClick}>
@@ -397,15 +402,25 @@ export function ActualizarRefaccion() {
 }
 
 export function VistaRefaccion() {
-  const location = useLocation();
-  const { refaccion } = location.state || {}; // Get refaccion from the state
+  const [refaccion, setRefaccion] = useState({});
+  const { id } = useParams();
+
+  const getRefaccion = async () => {
+    var res = await obtenerRefaccion(id);
+    setRefaccion(res.data);
+    console.log("Refaccion: " + JSON.stringify(res.data));
+  };
+
+  useEffect(() => {
+    getRefaccion();
+  }, []);
 
   return (
     <div>
       {refaccion ? (
         <div className="vistaRefaccion">
           <div className="imageContainer">
-            <img src={refaccion.imagePath} />
+            <img src={`${process.env.PUBLIC_URL}/${refaccion.imagePath}`} />
           </div>
 
           <div className="refaccionInfo">
