@@ -70,6 +70,9 @@ export function ListaRefacciones() {
         <span class="subheading">Lista</span>
       </div>
       <h2 class="heading-secondary">REFACCIONES</h2>
+      <div className="agregarButtonContainer">
+        <Button />
+      </div>
 
       <div className="listaRefacciones">
         {refacciones.map((refaccion) => (

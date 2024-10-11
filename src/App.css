@@ -671,3 +671,9 @@ input[type="button"] {
   box-shadow: 0 0 4px #111;
   transition: 0.3s;
 }
+
+.agregarButtonContainer {
+  position: relative;
+  margin-left: 120rem;
+  margin-bottom: 5rem;
+}
