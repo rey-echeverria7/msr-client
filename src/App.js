@@ -1,7 +1,7 @@
 import Nav from "./components/nav";
 import Login from "./pages/login";
-import AuthProvider from "./auth/AuthProvider";
-import React, { useEffect, useState } from "react";
+import { AuthContext } from "./auth/AuthContext";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -46,30 +46,38 @@ function App() {
 }
 
 export function ListaRefacciones() {
+  const { token, loading } = useContext(AuthContext);
   const [refacciones, setRefacciones] = useState([]);
 
-  const getRefacciones = async () => {
-    await axios.get("http://localhost:5157/api/refaccion").then((res) => {
-      setRefacciones(res.data);
-    });
-  };
-
   useEffect(() => {
-    getRefacciones();
-  }, []);
+    const getRefacciones = async () => {
+      try {
+        const res = await axios.get("http://localhost:5157/api/refaccion");
+        setRefacciones(res.data);
+      } catch (error) {
+        console.error("Error fetching refacciones:", error);
+      }
+    };
 
-  console.log(refacciones);
+    if (!loading && token) {
+      getRefacciones();
+    }
+  }, [loading, token]);
+
+  if (loading) {
+    return null; // Optionally show a loading spinner or message
+  }
+
+  if (!token) {
+    return <Navigate to="/login" />;
+  }
+
   return (
     <>
-      {/* <div className="headerLista">
-        <h1>Refacciones</h1>
-        <Button />
-      </div> */}
-
-      <div class="container center-text">
-        <span class="subheading">Lista</span>
+      <div className="container center-text">
+        <span className="subheading">Lista</span>
       </div>
-      <h2 class="heading-secondary">REFACCIONES</h2>
+      <h2 className="heading-secondary">REFACCIONES</h2>
       <div className="agregarButtonContainer">
         <Button />
       </div>
@@ -173,7 +181,7 @@ export function CardDescription({ refaccion }) {
 
 export function Home() {
   return (
-    <section class="section-hero">
+    <section className="section-hero">
       <div className="hero">
         <div className="hero-text-box">
           <h1 className="heading-primary">
@@ -209,8 +217,17 @@ export function AgregarRefaccion() {
   const [descripcion, setDescripcion] = useState("");
   const [nombreImagen, setNombreImagen] = useState("");
   const [compatibles, setCompatibles] = useState("");
+  const { token, loading } = useContext(AuthContext);
 
   const navigate = useNavigate();
+
+  if (loading) {
+    return null; // Optionally show a loading spinner or message
+  }
+
+  if (!token) {
+    return <Navigate to="/login" />;
+  }
 
   function getFileName(filePath) {
     return filePath.split("\\").pop();
@@ -314,12 +331,11 @@ export function ActualizarRefaccion() {
   const [descripcion, setDescripcion] = useState("");
   const [nombreImagen, setNombreImagen] = useState("");
   const [compatibles, setCompatibles] = useState("");
+  const { token, loading } = useContext(AuthContext);
 
   const navigate = useNavigate();
   const { id } = useParams();
   let imageName = "";
-
-  //console.log(nombreImagen);
 
   useEffect(() => {
     async function loadRefaccion() {
@@ -335,6 +351,14 @@ export function ActualizarRefaccion() {
 
     loadRefaccion();
   }, []);
+
+  if (loading) {
+    return null; // Optionally show a loading spinner or message
+  }
+
+  if (!token) {
+    return <Navigate to="/login" />;
+  }
 
   function getFileName(filePath) {
     return filePath.split("\\").pop();

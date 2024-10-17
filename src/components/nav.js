@@ -1,8 +1,11 @@
-import React from "react";
-import "../App.css";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../auth/AuthContext";
+import "../App.css";
 
 function Nav() {
+  const { token, logout } = useContext(AuthContext); // Get logout from context
+
   return (
     <div>
       <header className="header">
@@ -20,7 +23,19 @@ function Nav() {
               <Link to="/">Nosotros</Link>
             </li>
             <li>
-              <Link to="/login">Iniciar Sesion</Link>
+              {token ? (
+                <Link
+                  onClick={() => {
+                    logout(); // Call logout from context
+                    // Optionally navigate here if needed
+                  }}
+                  style={{ cursor: "pointer" }}
+                >
+                  Cerrar Sesión
+                </Link>
+              ) : (
+                <Link to="/login">Iniciar Sesion</Link>
+              )}
             </li>
           </ul>
         </nav>
