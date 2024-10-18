@@ -27,9 +27,8 @@ function Nav() {
                 <Link
                   onClick={() => {
                     logout(); // Call logout from context
-                    // Optionally navigate here if needed
                   }}
-                  style={{ cursor: "pointer" }}
+                  style={{ cursor: "pointer", color: "#ffbc0e" }}
                 >
                   Cerrar Sesión
                 </Link>

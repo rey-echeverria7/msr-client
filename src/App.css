@@ -441,24 +441,23 @@ VISTA DE REFACCION
 
 .vistaRefaccion {
   display: flex;
-  /*  justify-content: center; */ /* Aligns items horizontally (center) */
   align-items: center; /* Aligns items vertically (center) */
   height: 55%; /* Set a height, e.g., 100vh for full viewport height */
-  background-color: #fdf9f6;
-  box-shadow: 0 0 2px #333;
-  margin-left: 26%;
+  /*  background-color: #fdf9f6;
+  box-shadow: 0 0 2px #333; */
+  margin-left: 15%;
   margin-top: 5%;
-  width: 50%;
+  width: 70%;
+  gap: 12rem;
 }
 
 .vistaRefaccion img {
-  height: 320px;
-  width: 320px;
+  height: 400px;
+  width: 400px;
   margin: 30px 0 0 37px;
 }
 
 .vistaRefaccion h1 {
-  margin-bottom: 30px;
   font-family: times, Times New Roman, times-roman, georgia, serif;
   color: #222121;
   padding: 0px 0px 6px 0px;
@@ -469,12 +468,15 @@ VISTA DE REFACCION
 }
 
 .refaccionInfo {
-  margin-left: 30px;
-  /*  border: 1px solid black; */
-  margin-bottom: 50px;
-  margin-top: 5%;
+  margin-bottom: 10rem;
+  font-size: 2rem;
+  text-align: justify;
 }
-
+.refaccionDescription {
+  background-color: white;
+  margin: 0;
+  padding: 0;
+}
 .refaccionInfo :last-child {
   margin-top: 10%;
 }
@@ -510,6 +512,7 @@ VISTA DE REFACCION
   font-weight: bolder;
   align-items: center;
   justify-content: center;
+  margin-bottom: 7rem;
 }
 
 .resultContainer,
@@ -576,6 +579,10 @@ input[type="button"] {
   border-radius: 11px;
   overflow: hidden;
   transition: all 0.4s;
+  text-align: center;
+}
+
+.refaccion img {
 }
 
 .refaccion:hover {
@@ -584,27 +591,27 @@ input[type="button"] {
 }
 
 .refaccion-content {
-  padding: 3.2rem 4.8rem 4.8rem 4.8rem;
+  padding: 1.2rem 2.8rem 2.8rem 2.8rem;
 }
 
 .refaccion-tags {
   margin-bottom: 1.2rem;
   display: flex;
   gap: 0.4rem;
+  margin-left: 1.6rem;
 }
 
 .refaccion-title {
   font-size: 2.4rem;
   color: #333;
   font-weight: 600;
-  margin-bottom: 3.2rem;
+  margin-bottom: 1.2rem;
 }
 
 .refaccion-precio {
   font-size: 2.4rem;
   color: #333;
   font-weight: 450;
-  margin-bottom: 3.2rem;
 }
 
 .tag {
@@ -628,7 +635,6 @@ input[type="button"] {
 }
 
 .buttonContainerRefaccion {
-  margin-bottom: 35px;
   margin-left: 16px;
   display: flex;
   gap: 6px;

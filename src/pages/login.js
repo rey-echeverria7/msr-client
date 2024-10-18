@@ -65,9 +65,9 @@ const Login = () => {
       <br />
       <div className="inputContainer">
         <input
-          type="email" // Change input type to email
+          type="email"
           value={username}
-          placeholder="Enter your username here"
+          placeholder="Ingresa tu usuario"
           onChange={(ev) => setUsername(ev.target.value)}
           className="inputBox"
         />
@@ -76,9 +76,9 @@ const Login = () => {
       <br />
       <div className="inputContainer">
         <input
-          type="password" // Ensure password input type is password
+          type="password"
           value={password}
-          placeholder="Enter your password here"
+          placeholder="Ingresa tu contraseña"
           onChange={(ev) => setPassword(ev.target.value)}
           className="inputBox"
         />
@@ -90,7 +90,7 @@ const Login = () => {
           className="inputButton"
           type="button"
           onClick={handleSubmit}
-          value="Log in"
+          value="Ingresar"
         />
       </div>
       {errorMessage && <div className="errorMessage">{errorMessage}</div>}

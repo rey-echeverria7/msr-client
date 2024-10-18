@@ -12,7 +12,6 @@ import {
   obtenerRefaccion,
 } from "./api/refacciones.api";
 import { useNavigate } from "react-router-dom";
-import { useLocation } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
 function App() {
@@ -52,7 +51,12 @@ export function ListaRefacciones() {
   useEffect(() => {
     const getRefacciones = async () => {
       try {
-        const res = await axios.get("http://localhost:5157/api/refaccion");
+        const res = await axios.get("http://localhost:5157/api/refaccion", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
         setRefacciones(res.data);
       } catch (error) {
         console.error("Error fetching refacciones:", error);
@@ -116,6 +120,7 @@ export function Refaccion({ refaccion, onDelete }) {
 
 export function RefaccionCard({ refaccion, onDelete }) {
   const navigate = useNavigate();
+  const { token } = useContext(AuthContext);
 
   function handleRefaccionClick() {
     navigate(`/actualizarRefaccion/${refaccion.id}`);
@@ -135,35 +140,36 @@ export function RefaccionCard({ refaccion, onDelete }) {
         <p className="refaccion-title">{refaccion.nombre}</p>
         <p className="refaccion-precio">${refaccion.precio}</p>
       </div>
+      {token ? (
+        <div className="buttonContainerRefaccion">
+          <button
+            className="buttonDelete"
+            onClick={async (e) => {
+              e.stopPropagation(); // Prevents the card click event
+              const accepted = window.confirm(
+                "¿Esta seguro que quiere eliminar?"
+              );
+              if (accepted) {
+                await eliminarRefaccion(refaccion.id, token);
+                onDelete(refaccion.id); // Call onDelete to update the state
+                navigate("/listaRefacciones");
+              }
+            }}
+          >
+            Eliminar
+          </button>
 
-      <div className="buttonContainerRefaccion">
-        <button
-          className="buttonDelete"
-          onClick={async (e) => {
-            e.stopPropagation(); // Prevents the card click event
-            const accepted = window.confirm(
-              "¿Esta seguro que quiere eliminar?"
-            );
-            if (accepted) {
-              await eliminarRefaccion(refaccion.id);
-              onDelete(refaccion.id); // Call onDelete to update the state
-              navigate("/listaRefacciones");
-            }
-          }}
-        >
-          Eliminar
-        </button>
-
-        <button
-          className="updateButton"
-          onClick={(e) => {
-            e.stopPropagation(); // Prevents the card click event
-            handleRefaccionClick();
-          }}
-        >
-          Modificar
-        </button>
-      </div>
+          <button
+            className="updateButton"
+            onClick={(e) => {
+              e.stopPropagation(); // Prevents the card click event
+              handleRefaccionClick();
+            }}
+          >
+            Modificar
+          </button>
+        </div>
+      ) : null}
     </div>
   );
 }
@@ -252,7 +258,7 @@ export function AgregarRefaccion() {
       const newRefaccion = JSON.stringify(refaccion);
       console.log(newRefaccion);
       // Call crearRefaccion and wait for it to complete
-      await crearRefaccion(newRefaccion);
+      await crearRefaccion(newRefaccion, token);
 
       // Clear form fields
       setCodigo("");
@@ -339,7 +345,7 @@ export function ActualizarRefaccion() {
 
   useEffect(() => {
     async function loadRefaccion() {
-      const ref = await obtenerRefaccion(id).then();
+      const ref = await obtenerRefaccion(id, token).then();
       //console.log(ref.data);
       setCodigo(ref.data.codigo);
       setNombre(ref.data.nombre);
@@ -382,7 +388,7 @@ export function ActualizarRefaccion() {
       const newRefaccion = JSON.stringify(refaccion);
       console.log(newRefaccion);
       // Call actualizarRefaccion and wait for it to complete
-      await actualizarRefaccion(id, newRefaccion);
+      await actualizarRefaccion(id, newRefaccion, token);
 
       // Clear form fields
       setCodigo("");
@@ -458,11 +464,12 @@ export function ActualizarRefaccion() {
 export function VistaRefaccion() {
   const [refaccion, setRefaccion] = useState({});
   const { id } = useParams();
+  const { token } = useContext(AuthContext);
 
   const getRefaccion = async () => {
-    var res = await obtenerRefaccion(id);
+    var res = await obtenerRefaccion(id, token);
     setRefaccion(res.data);
-    console.log("Refaccion: " + JSON.stringify(res.data));
+    //console.log("Refaccion: " + JSON.stringify(res.data));
   };
 
   useEffect(() => {
@@ -479,8 +486,10 @@ export function VistaRefaccion() {
 
           <div className="refaccionInfo">
             <h1>{refaccion.nombre}</h1>
-            <p className="priceTagView">${refaccion.precio}</p>
-            <p>{refaccion.descripcion}</p>
+            <div className="refaccionDescription">
+              <p>{refaccion.descripcion}</p>
+              <p className="priceTagView">${refaccion.precio}</p>
+            </div>
           </div>
         </div>
       ) : (
