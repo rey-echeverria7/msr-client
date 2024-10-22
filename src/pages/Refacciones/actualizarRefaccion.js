@@ -60,6 +60,7 @@ export function ActualizarRefaccion() {
         nombre: nombre,
         precio: precio,
         descripcion: descripcion,
+        compatibles: compatibles,
         imagePath: "static/" + img,
       };
 
@@ -73,13 +74,14 @@ export function ActualizarRefaccion() {
       setNombre("");
       setPrecio("");
       setDescripcion("");
+      setCompatibles("");
       setNombreImagen("");
 
       // Navigate to another page
       navigate("/listaRefacciones");
     } catch (error) {
       // Handle errors here
-      console.error("Error updating refaccion:", error);
+      console.error("Error updating refaccion:", error.response || error);
       alert("Failed to update refaccion. Please try again.");
     }
   };
@@ -132,7 +134,7 @@ export function ActualizarRefaccion() {
         <input
           type="file"
           value={nombreImagen}
-          onChange={(e) => setNombreImagen(e.target.files[0]?.name || "")}
+          onChange={(e) => setNombreImagen(e.target.value)}
         ></input>
         <input type="submit" value="Submit" />
       </form>
